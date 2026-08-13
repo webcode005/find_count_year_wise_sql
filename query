@@ -4,3 +4,40 @@ SELECT
 FROM item_order_covers
 GROUP BY YEAR(created_at)
 ORDER BY year DESC;
+
+
+# Check records that will be deleted
+
+If you want to keep only 2026 data:
+
+SELECT COUNT(*) AS records_to_delete
+FROM item_order_covers
+WHERE created_at < '2026-01-01';
+
+
+OR other query
+
+SELECT
+    YEAR(created_at) AS year,
+    COUNT(*) AS total_records
+FROM item_order_covers
+WHERE created_at < '2026-01-01'
+GROUP BY YEAR(created_at)
+ORDER BY year DESC;
+
+#Delete records
+
+After verifying the counts:
+
+DELETE FROM item_order_covers
+WHERE created_at < '2026-01-01';
+
+
+#If the table contains millions of records
+
+Delete in batches:
+
+DELETE FROM item_order_covers
+WHERE created_at < '2026-01-01'
+LIMIT 10000;
+
