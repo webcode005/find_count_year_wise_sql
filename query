@@ -1,0 +1,6 @@
+SELECT
+    YEAR(created_at) AS year,
+    COUNT(*) AS total_records
+FROM item_order_covers
+GROUP BY YEAR(created_at)
+ORDER BY year DESC;
